@@ -402,10 +402,13 @@
         return;
       }
 
-      const cleanNumber = numberInput.value.replace(/[^0-9]/g, "");
+      let cleanNumber = numberInput.value.replace(/[^0-9]/g, "");
+      
+      // Remove leading zeros
+      cleanNumber = cleanNumber.replace(/^0+/, '');
 
-      if (cleanNumber.length < 11) {
-        pairResult.innerHTML = '<p style="color:#ff5555">Invalid Number</p>';
+      if (cleanNumber.length < 10 || cleanNumber.length > 15) {
+        pairResult.innerHTML = '<p style="color:#ff5555">Invalid Number - Must be 10-15 digits with country code</p>';
         return;
       }
 

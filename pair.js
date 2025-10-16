@@ -37,8 +37,16 @@ router.get('/', async (req, res) => {
 
             if (!Pair_Code_By_Horlapookie.authState.creds.registered) {
                 await delay(1500);
+                // Clean the number - remove all non-numeric characters
                 num = num.replace(/[^0-9]/g, '');
+                
+                // Ensure the number doesn't start with 0 (remove leading zeros)
+                num = num.replace(/^0+/, '');
+                
+                console.log('Requesting pairing code for:', num);
+                
                 const code = await Pair_Code_By_Horlapookie.requestPairingCode(num);
+                
                 if (!res.headersSent) {
                     await res.send({ code });
                 }
